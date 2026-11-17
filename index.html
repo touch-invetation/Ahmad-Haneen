@@ -2,26 +2,12 @@
 <html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>دعوة زفاف — أحمد وحنين</title>
+ <meta name="description" content="دعوة زفاف أحمد وحنين">
 
-    <meta name="description" content="أحمد ⁠♡ حنين">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:url" content="https://touch-invetation.github.io/Ahmad-Haneen/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="دعوة زفاف" />
-    <meta property="og:image" content="https://touch-invetation.github.io/Ahmad-Haneen/love-letter.png" />
-    <meta property="og:image:secure_url" content="https://touch-invetation.github.io/Ahmad-Haneen/love-letter.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
-
-    <!-- Twitter Meta Tags -->
+    <meta property="og:title" content="دعوة زفاف أحمد وحنين" />
     <meta name="twitter:card" content="summary" />
-    <meta property="twitter:domain" content="touch-invetation.github.io" />
-    <meta property="twitter:url" content="https://touch-invetation.github.io/Ahmad-Haneen/" />
-    <meta name="twitter:title" content="دعوة زفاف" />
-    <meta name="twitter:image" content="https://touch-invetation.github.io/Ahmad-Haneen/love-letter.png" />
-
+    <meta name="twitter:title" content="دعوة زفاف أحمد وحنين" />
 
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Gulzar&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -394,17 +380,17 @@ tick();setInterval(tick,1000);
 })();
 
 
-var FIREBASE={apiKey:"AIzaSyBxzEKOQ8NrNqgeJp1XePLEsbEKXdXHla4",projectId:"my-wedding-cards",collection:"rsvp_ahmed_haneen",stats:"rsvp_ahmed_haneen_stats/summary"};
+var FIREBASE={apiKey:"AIzaSyBxzEKOQ8NrNqgeJp1XePLEsbEKXdXHla4",projectId:"my-wedding-cards",collection:"rsvp_ahmed_haneen"};
 (function(){var f=document.getElementById("rsvp");if(!f)return;
 var B="https://firestore.googleapis.com/v1/projects/"+FIREBASE.projectId+"/databases/(default)/documents",K="?key="+FIREBASE.apiKey,
-DOC="projects/"+FIREBASE.projectId+"/databases/(default)/documents/",LS="rsvp_ah",btn=f.querySelector(".rs-b"),er=document.getElementById("rs-err"),
+LS="rsvp_ah",btn=f.querySelector(".rs-b"),er=document.getElementById("rs-err"),
 gw=document.getElementById("rs-g"),gn=document.getElementById("rs-gn"),g=1,shown=0;
 function phrase(n){if(n===1)return"ضيف واحد أكّد حضوره";if(n===2)return"ضيفان أكّدا حضورهما";if(n<=10)return"ضيوف أكّدوا حضورهم";return"ضيفاً أكّدوا حضورهم"}
 function show(n){var box=document.getElementById("rs-count"),b=document.getElementById("rc-n"),t=document.getElementById("rc-t");box.hidden=false;
 if(!(n>0)){b.style.display="none";t.textContent="كونوا أول من يؤكّد حضوره";return}
 t.textContent=phrase(n);if(n<=2){b.style.display="none";return}b.style.display="";var from=shown>2?shown:0,st=null;shown=n;
 (function step(ts){if(!st)st=ts;var k=Math.min(1,(ts-st)/1000),e=1-Math.pow(1-k,3);b.textContent=Math.round(from+(n-from)*e);if(k<1)requestAnimationFrame(step)})(performance.now())}
-function load(){fetch(B+"/"+FIREBASE.stats+K).then(function(r){if(r.status===404)return{fields:{}};if(!r.ok)throw 0;return r.json()}).then(function(d){var a=d.fields&&d.fields.attending;show(a?+(a.integerValue||a.doubleValue||0):0)}).catch(function(){})}
+function load(){fetch(B+":runAggregationQuery"+K,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({structuredAggregationQuery:{aggregations:[{alias:"n",sum:{field:{fieldPath:"guestsCount"}}}],structuredQuery:{from:[{collectionId:FIREBASE.collection}]}}})}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var v=d&&d[0]&&d[0].result&&d[0].result.aggregateFields&&d[0].result.aggregateFields.n;show(v?Math.round(+(v.integerValue||v.doubleValue||0)):0)}).catch(function(){})}
 var io=window.IntersectionObserver&&new IntersectionObserver(function(es){if(es[0].isIntersecting){load();io.disconnect()}});
 io?io.observe(document.getElementById("rs-count").parentNode):load();
 gw.addEventListener("click",function(e){var d=e.target.getAttribute&&e.target.getAttribute("data-d");if(!d)return;g=Math.max(1,Math.min(6,g+(+d)));gn.textContent=g});
@@ -415,10 +401,8 @@ try{if(/[?&]reset\b/.test(location.search))localStorage.removeItem(LS);var sv=JS
 f.addEventListener("submit",function(e){e.preventDefault();var n=f.name.value.trim();
 if(n.length<2){er.textContent="الرجاء إدخال اسمك.";f.name.focus();return}er.textContent="";
 var yes=f.att.value==="yes",c=yes?g:0,id=n.toLowerCase().replace(/\s+/g," ").replace(/\//g,"-").slice(0,120);btn.disabled=true;
-fetch(B+":commit"+K,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({writes:[
-{update:{name:DOC+FIREBASE.collection+"/"+id,fields:{name:{stringValue:n},status:{stringValue:yes?"Attending":"Not attending"},guestsCount:{integerValue:String(c)},createdAt:{timestampValue:new Date().toISOString()}}},currentDocument:{exists:false}},
-{transform:{document:DOC+FIREBASE.stats,fieldTransforms:[{fieldPath:"attending",increment:{integerValue:String(c)}},{fieldPath:"responses",increment:{integerValue:"1"}}]}}]})})
+fetch(B+"/"+FIREBASE.collection+K+"&documentId="+encodeURIComponent(id),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({fields:{name:{stringValue:n},status:{stringValue:yes?"Attending":"Not attending"},guestsCount:{integerValue:String(c)},createdAt:{timestampValue:new Date().toISOString()}}})})
 .then(function(r){if(r.ok){try{localStorage.setItem(LS,JSON.stringify({n:n,y:yes,c:c}))}catch(_){}done(n,yes,c);load();return}
-return r.text().then(function(t){btn.disabled=false;er.textContent=/FAILED_PRECONDITION|ALREADY_EXISTS/.test(t)?"وصلنا ردّ بهذا الاسم مسبقاً. إن أردت تعديله فالرجاء التواصل معنا.":"عذراً، تعذّر إرسال ردّك. حاول مرة أخرى."})})
+return r.text().then(function(t){btn.disabled=false;er.textContent=(r.status===409||/ALREADY_EXISTS/.test(t))?"وصلنا ردّ بهذا الاسم مسبقاً. إن أردت تعديله فالرجاء التواصل معنا.":"عذراً، تعذّر إرسال ردّك. حاول مرة أخرى."})})
 .catch(function(){btn.disabled=false;er.textContent="عذراً، تعذّر إرسال ردّك. حاول مرة أخرى."})})})();
 </script></body></html>
