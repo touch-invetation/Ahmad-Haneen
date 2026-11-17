@@ -22,6 +22,7 @@
     <meta name="twitter:title" content="دعوة زفاف" />
     <meta name="twitter:image" content="https://touch-invetation.github.io/Ahmad-Haneen/love-letter.png" />
 
+
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Gulzar&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:light;--gold:#b8933f;--burg:#5a1428;--burg2:#3f0d1c;--ink:#6b5a3a;--line:#e3d5b0;--bg:#ffffff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -278,6 +279,31 @@ body{font:500 19px/1.9 'Noto Naskh Arabic',serif}
 .hero .q{font-size:16px;line-height:2}
 .hero .nm{font-size:clamp(30px,8.5vw,44px);white-space:nowrap;margin:8px 0 4px}.nand{font-family:'Noto Naskh Arabic',serif;font-size:.5em;color:var(--gold);margin:0 .3em;vertical-align:.25em}
 .card2 .logo-card{width:clamp(26px,7.5vw,36px);margin:0 auto 6px}
+
+.rs-cw{text-align:center;margin:0 0 16px}
+.rs-count{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 12px;border-radius:40px;border:1px solid #cfa94f88;background:#ffffff0d;color:#f1e4c3;font:500 17px/1.6 'Noto Naskh Arabic',serif;animation:rcin .6s ease both}
+.rs-count[hidden]{display:none}
+.rs-count em{flex:none;width:26px;height:26px;border-radius:50%;background:#cfa94f;color:#3f0d1c;display:grid;place-items:center;font:700 14px sans-serif;font-style:normal}
+.rs-count b{color:#f3dc9c;font-size:22px}
+@keyframes rcin{from{opacity:0;transform:translateY(6px)}}
+.rs-p{font-size:16px!important;margin:0 auto 18px!important}
+#rs-name{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #d8c69a;border-radius:12px;background:#fff;font:500 17px 'Noto Naskh Arabic',serif;color:var(--burg);outline:none}
+#rs-name:focus{border-color:#b8933f;box-shadow:0 0 0 3px #e6c97f55}
+.rs-g{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:12px 4px 2px;border-top:1px dashed #e3d5b0;transition:opacity .3s}
+.rs-g.off{opacity:.35;pointer-events:none}
+.st{display:flex;align-items:center;gap:6px}
+.st button{width:34px;height:34px;border-radius:50%;border:1px solid #cfa94f;background:#fff;color:var(--burg);font:600 20px/1 sans-serif;cursor:pointer}
+.st button:active{background:#f6ecd2}
+.st output{min-width:30px;text-align:center;font:700 20px 'Noto Naskh Arabic',serif;color:var(--burg)}
+.rs-b:disabled{opacity:.6;cursor:wait}
+.rsvp.nts{background:linear-gradient(#3f0d1c,#5a1428);border-top:1px solid #cfa94f40;padding-top:52px}
+.rsvp.nts .script{color:#e6c97f}
+.rsvp.nts .rs-card.nt{box-shadow:0 12px 30px #0006}
+.tn{position:relative;max-width:300px;margin:26px auto 4px;padding:22px 20px 16px;border:1px solid #cfa94f;border-radius:16px;background:#fffdf8cc}
+.tn::before{content:"";position:absolute;inset:5px;border:1px solid #cfa94f55;border-radius:12px;pointer-events:none}
+.tn span{position:absolute;top:-13px;left:50%;transform:translateX(-50%);padding:0 14px;background:#fbf7ef;color:#b8933f;font:700 15px/26px 'Noto Naskh Arabic',serif;white-space:nowrap}
+.tn p{margin:0 0 4px!important;font:700 18px/1.8 'Noto Naskh Arabic',serif!important;color:var(--burg)!important}
+.tn small{display:block;font:500 15px 'Noto Naskh Arabic',serif;color:#9a7f43}
 </style></head><body class="lock">
 <div id="cover" role="button" tabindex="0" aria-label="افتح الدعوة">
  <div class="env"><div class="inner"></div>
@@ -314,15 +340,31 @@ body{font:500 19px/1.9 'Noto Naskh Arabic',serif}
 </section>
 <div class="dv"></div>
 
-<section class="rsvp dk">
- <h2 class="script">تنبيه</h2>
+<section class="rsvp dk" id="rsvp-sec">
+ <h2 class="script">تأكيد الحضور</h2>
  <div class="orn"></div>
- <div class="rs-card nt"><p>نرجو منكم التكرّم بعدم اصطحاب الأطفال</p><small>شاكرين لكم حسن تفهّمكم</small></div>
+ <div class="rs-cw"><div class="rs-count" id="rs-count" hidden><em aria-hidden="true">✓</em><span><b id="rc-n"></b> <span id="rc-t"></span></span></div></div>
+ <p class="rs-p">نرجو تأكيد حضوركم قبل 30 نوفمبر 2026</p>
+ <form class="rs-card" id="rsvp" novalidate>
+  <label class="rs-l" for="rs-name">الاسم</label>
+  <input id="rs-name" name="name" type="text" autocomplete="name" placeholder="الاسم الأول والأخير" maxlength="80">
+  <div class="rs-err" id="rs-err" role="alert"></div>
+  <div class="rs-l" style="margin-top:14px">هل ستحضرون؟</div>
+  <label class="rs-r"><input type="radio" name="att" value="yes" checked><i></i><span>نعم، بكل سرور</span></label>
+  <label class="rs-r"><input type="radio" name="att" value="no"><i></i><span>للأسف لن أستطيع الحضور</span></label>
+  <div class="rs-g" id="rs-g">
+   <span class="rs-l" style="margin:0">عدد الأشخاص</span>
+   <div class="st"><button type="button" data-d="-1" aria-label="إنقاص">−</button><output id="rs-gn" aria-live="polite">1</output><button type="button" data-d="1" aria-label="زيادة">+</button></div>
+  </div>
+  <button type="submit" class="rs-b">إرسال</button>
+ </form>
+ <div class="rs-ok" id="rs-ok" hidden><div class="script" style="font-size:34px">شكراً لكم</div><p id="rs-okp"></p></div>
 </section>
 <section class="thanks"><i class="fx f-br"></i><i class="fx f-br mx"></i>
  <div class="orn"></div>
  <h2 class="script" style="font-size:48px">شكراً لكم</h2>
  <p>بارك الله لنا ولكم، ونتشرف بحضوركم ومشاركتنا فرحتنا.</p>
+ <div class="tn"><span>تنبيه</span><p>نرجو منكم التكرّم بعدم اصطحاب الأطفال</p><small>شاكرين لكم حسن تفهّمكم</small></div>
  <div class="logo logo-sm" role="img" aria-label="أحمد وحنين"></div>
 </section>
 </main>
@@ -351,4 +393,32 @@ function tick(){var x=Math.max(0,T-Date.now());d.textContent=Math.floor(x/864e5)
 tick();setInterval(tick,1000);
 })();
 
+
+var FIREBASE={apiKey:"AIzaSyBxzEKOQ8NrNqgeJp1XePLEsbEKXdXHla4",projectId:"my-wedding-cards",collection:"rsvp_ahmed_haneen",stats:"rsvp_ahmed_haneen_stats/summary"};
+(function(){var f=document.getElementById("rsvp");if(!f)return;
+var B="https://firestore.googleapis.com/v1/projects/"+FIREBASE.projectId+"/databases/(default)/documents",K="?key="+FIREBASE.apiKey,
+DOC="projects/"+FIREBASE.projectId+"/databases/(default)/documents/",LS="rsvp_ah",btn=f.querySelector(".rs-b"),er=document.getElementById("rs-err"),
+gw=document.getElementById("rs-g"),gn=document.getElementById("rs-gn"),g=1,shown=0;
+function phrase(n){if(n===1)return"ضيف واحد أكّد حضوره";if(n===2)return"ضيفان أكّدا حضورهما";if(n<=10)return"ضيوف أكّدوا حضورهم";return"ضيفاً أكّدوا حضورهم"}
+function show(n){var box=document.getElementById("rs-count"),b=document.getElementById("rc-n"),t=document.getElementById("rc-t");box.hidden=false;
+if(!(n>0)){b.style.display="none";t.textContent="كونوا أول من يؤكّد حضوره";return}
+t.textContent=phrase(n);if(n<=2){b.style.display="none";return}b.style.display="";var from=shown>2?shown:0,st=null;shown=n;
+(function step(ts){if(!st)st=ts;var k=Math.min(1,(ts-st)/1000),e=1-Math.pow(1-k,3);b.textContent=Math.round(from+(n-from)*e);if(k<1)requestAnimationFrame(step)})(performance.now())}
+function load(){fetch(B+"/"+FIREBASE.stats+K).then(function(r){if(r.status===404)return{fields:{}};if(!r.ok)throw 0;return r.json()}).then(function(d){var a=d.fields&&d.fields.attending;show(a?+(a.integerValue||a.doubleValue||0):0)}).catch(function(){})}
+var io=window.IntersectionObserver&&new IntersectionObserver(function(es){if(es[0].isIntersecting){load();io.disconnect()}});
+io?io.observe(document.getElementById("rs-count").parentNode):load();
+gw.addEventListener("click",function(e){var d=e.target.getAttribute&&e.target.getAttribute("data-d");if(!d)return;g=Math.max(1,Math.min(6,g+(+d)));gn.textContent=g});
+f.addEventListener("change",function(){gw.classList.toggle("off",f.att.value!=="yes")});
+function done(n,yes,c){f.hidden=true;var ok=document.getElementById("rs-ok");ok.hidden=false;
+document.getElementById("rs-okp").textContent=yes?"يسعدنا حضورك يا "+n+(c>1?" مع "+(c===2?"شخص آخر":c===3?"شخصين آخرين":(c-1)+" أشخاص"):"")+"، بارك الله فيك.":"سنفتقدك يا "+n+"، جزاك الله خيراً على إعلامنا."}
+try{if(/[?&]reset\b/.test(location.search))localStorage.removeItem(LS);var sv=JSON.parse(localStorage.getItem(LS)||"null");if(sv&&sv.n)done(sv.n,sv.y,sv.c)}catch(_){}
+f.addEventListener("submit",function(e){e.preventDefault();var n=f.name.value.trim();
+if(n.length<2){er.textContent="الرجاء إدخال اسمك.";f.name.focus();return}er.textContent="";
+var yes=f.att.value==="yes",c=yes?g:0,id=n.toLowerCase().replace(/\s+/g," ").replace(/\//g,"-").slice(0,120);btn.disabled=true;
+fetch(B+":commit"+K,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({writes:[
+{update:{name:DOC+FIREBASE.collection+"/"+id,fields:{name:{stringValue:n},status:{stringValue:yes?"Attending":"Not attending"},guestsCount:{integerValue:String(c)},createdAt:{timestampValue:new Date().toISOString()}}},currentDocument:{exists:false}},
+{transform:{document:DOC+FIREBASE.stats,fieldTransforms:[{fieldPath:"attending",increment:{integerValue:String(c)}},{fieldPath:"responses",increment:{integerValue:"1"}}]}}]})})
+.then(function(r){if(r.ok){try{localStorage.setItem(LS,JSON.stringify({n:n,y:yes,c:c}))}catch(_){}done(n,yes,c);load();return}
+return r.text().then(function(t){btn.disabled=false;er.textContent=/FAILED_PRECONDITION|ALREADY_EXISTS/.test(t)?"وصلنا ردّ بهذا الاسم مسبقاً. إن أردت تعديله فالرجاء التواصل معنا.":"عذراً، تعذّر إرسال ردّك. حاول مرة أخرى."})})
+.catch(function(){btn.disabled=false;er.textContent="عذراً، تعذّر إرسال ردّك. حاول مرة أخرى."})})})();
 </script></body></html>
