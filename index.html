@@ -22,7 +22,6 @@
     <meta name="twitter:title" content="دعوة زفاف" />
     <meta name="twitter:image" content="https://touch-invetation.github.io/Ahmad-Haneen/love-letter.png" />
 
-
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:light;--gold:#b8933f;--burg:#5a1428;--burg2:#3f0d1c;--ink:#6b5a3a;--line:#e3d5b0;--bg:#ffffff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -348,7 +347,6 @@ body{font:500 19px/1.9 'Amiri',serif}
 <section class="rsvp dk" id="rsvp-sec">
  <h2 class="script">تأكيد الحضور</h2>
  <div class="orn"></div>
- <div class="rs-cw"><div class="rs-count" id="rs-count" hidden><em aria-hidden="true">✓</em><span><b id="rc-n"></b> <span id="rc-t"></span></span></div></div>
  <p class="rs-p">نرجو تأكيد حضوركم</p>
  <form class="rs-card" id="rsvp" novalidate>
   <label class="rs-l" for="rs-name">الاسم</label>
@@ -404,14 +402,7 @@ var FIREBASE={apiKey:"AIzaSyBxzEKOQ8NrNqgeJp1XePLEsbEKXdXHla4",projectId:"my-wed
 var B="https://firestore.googleapis.com/v1/projects/"+FIREBASE.projectId+"/databases/(default)/documents",K="?key="+FIREBASE.apiKey,
 LS="rsvp_ah",btn=f.querySelector(".rs-b"),er=document.getElementById("rs-err"),
 gw=document.getElementById("rs-g"),gn=document.getElementById("rs-gn"),g=1,shown=0;
-function phrase(n){if(n===1)return"ضيف واحد أكّد حضوره";if(n===2)return"ضيفان أكّدا حضورهما";if(n<=10)return"ضيوف أكّدوا حضورهم";return"ضيفاً أكّدوا حضورهم"}
-function show(n){var box=document.getElementById("rs-count"),b=document.getElementById("rc-n"),t=document.getElementById("rc-t");box.hidden=false;
-if(!(n>0)){b.style.display="none";t.textContent="كونوا أول من يؤكّد حضوره";return}
-t.textContent=phrase(n);if(n<=2){b.style.display="none";return}b.style.display="";var from=shown>2?shown:0,st=null;shown=n;
-(function step(ts){if(!st)st=ts;var k=Math.min(1,(ts-st)/1000),e=1-Math.pow(1-k,3);b.textContent=Math.round(from+(n-from)*e);if(k<1)requestAnimationFrame(step)})(performance.now())}
-function load(){fetch(B+":runAggregationQuery"+K,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({structuredAggregationQuery:{aggregations:[{alias:"n",sum:{field:{fieldPath:"guestsCount"}}}],structuredQuery:{from:[{collectionId:FIREBASE.collection}]}}})}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var v=d&&d[0]&&d[0].result&&d[0].result.aggregateFields&&d[0].result.aggregateFields.n;show(v?Math.round(+(v.integerValue||v.doubleValue||0)):0)}).catch(function(){})}
-var io=window.IntersectionObserver&&new IntersectionObserver(function(es){if(es[0].isIntersecting){load();io.disconnect()}});
-io?io.observe(document.getElementById("rs-count").parentNode):load();
+function load(){}
 gw.addEventListener("click",function(e){var d=e.target.getAttribute&&e.target.getAttribute("data-d");if(!d)return;g=Math.max(1,Math.min(6,g+(+d)));gn.textContent=g});
 f.addEventListener("change",function(){gw.classList.toggle("off",f.att.value!=="yes")});
 function done(n,yes,c){f.hidden=true;var ok=document.getElementById("rs-ok");ok.hidden=false;
